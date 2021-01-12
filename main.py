@@ -20,7 +20,8 @@ import requests
 URL = 'https://opencritic.com/browse/ps5/upcoming'
 page = requests.get(URL)
 soup = BeautifulSoup(page.content, 'lxml')
-games = soup.find_all('div', class_='game-name')
+games = soup.find_all('div', class_='game-name col')
+release_dates = soup.find_all('div', class_='first-release-date')
 
 # print(soup.prettify())
 
@@ -28,3 +29,6 @@ games = soup.find_all('div', class_='game-name')
 
 for game in games:
     print(game.text)
+
+for date in release_dates:
+    print(date.text)
