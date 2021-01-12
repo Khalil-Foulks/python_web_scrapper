@@ -26,15 +26,8 @@ release_dates = soup.find_all('div', class_='first-release-date')
 game_scores = soup.find_all('div', class_='score')
 game_platforms = soup.find_all('div', class_='platforms')
 
-# print(soup.prettify())
-
-# print(titles)
-
-# for game in games:
-#     print(game.text)
-
-# for date in release_dates:
-#     print(date.text)
+def remove(string): 
+    return string.replace(" ", "") 
 
 def game_info():
     cache = {}
@@ -76,6 +69,10 @@ def game_info():
                 old_val = cache[game]
                 old_val.append(plat)
     
-    print(cache)
+    # print(cache)
+
+    for game in cache:
+        print(f'{game} released on {cache[game][0]} for "{remove(cache[game][2])}" and recieved an avg score of {remove(cache[game][1])}')
+
 
 game_info()
