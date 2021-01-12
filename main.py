@@ -72,7 +72,6 @@ def game_info():
     # print(cache)
 
     for game in cache:
-        print(f'{game} released on {cache[game][0]} for "{remove(cache[game][2])}" and recieved an avg score of {remove(cache[game][1])}')
-
+        print(f'{game} released on {cache[game][0]}, 2020 for "{cache[game][2].strip()}" and recieved an avg score of {remove(cache[game][1])} \n')
 
 game_info()
