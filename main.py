@@ -1,12 +1,13 @@
 from bs4 import BeautifulSoup
 import requests
 import time
+import os
 
 # uncomment code below if reaching recursion limit
 # import sys
 # sys.setrecursionlimit(2000)
 
-def game_scrapper(file_mode, page_num=1):
+def game_scrapper(page_num=1):
     # grabs and prints all game titles on a page
     page_num = page_num
     URL = f'https://opencritic.com/browse/all/2020?page={page_num}'
@@ -26,7 +27,7 @@ def game_scrapper(file_mode, page_num=1):
             game_platforms = games.find('div', class_='platforms').text.strip()
             game_link = 'https://opencritic.com' + games.a['href']
 
-            with open(f'games/game_list.txt', f'{file_mode}', encoding='utf-8') as f:
+            with open(f'games/game_list.txt', 'a', encoding='utf-8') as f:
                 # Move read cursor to the start of file.
                 f.seek(0)
                 f.write(f'Game Name: {game_name} \n')
@@ -38,7 +39,7 @@ def game_scrapper(file_mode, page_num=1):
             print(f'File saved: {game_name} at Rank:{game_rank} was added')
         page_num += 1
         # adds another page of games to txt file
-        game_scrapper('a', page_num)
+        game_scrapper( page_num)
 
     else:
         return
@@ -46,10 +47,16 @@ def game_scrapper(file_mode, page_num=1):
 # runs the game scrapper every set number of minutes
 if __name__ == '__main__':
     while True:
-            # overwrites existing game_list txt file if it exists, otherwise creates a new file
-            game_scrapper('w')
-            # time in minutes
-            time_wait = .5 
-            print('')
-            print(f'Waiting {time_wait} minute(s)...')
-            time.sleep(time_wait * 60)
+        # wipes the game_ list file if it exists
+        if os.path.exists('games/game_list.txt'):
+            file = open('games/game_list.txt','r+')
+            file.truncate(0)
+            file.close()
+
+        # overwrites existing game_list txt file if it exists, otherwise creates a new file
+        game_scrapper()
+        # time in minutes
+        time_wait = 5
+        print('')
+        print(f'Waiting {time_wait} minute(s)...')
+        time.sleep(time_wait * 60)
