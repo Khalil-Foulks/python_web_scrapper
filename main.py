@@ -16,13 +16,12 @@ def game_scrapper():
         game_scores = games.find('div', class_='score').text.strip()
         game_platforms = games.find('div', class_='platforms').text.strip()
 
-        print(f'''
-            Game Name: {game_name}
-            Release Date: {release_dates}
-            Platforms: {game_platforms}
-            Score: {game_scores}
-        ''')
+        print(f'Game Name: {game_name}')
+        print(f'Release Date: {release_dates}, 2020')
+        print(f'Platforms: {game_platforms}')
+        print(f'Score: {game_scores}')
 
+        print('')
 
     # print(games_list)
     
