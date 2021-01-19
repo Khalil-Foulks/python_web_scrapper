@@ -39,7 +39,7 @@ def game_scrapper(page_num=1):
             print(f'File saved: {game_name} at Rank:{game_rank} was added')
         page_num += 1
         # adds another page of games to txt file
-        game_scrapper( page_num)
+        game_scrapper(page_num)
 
     else:
         return
